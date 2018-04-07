@@ -5,11 +5,21 @@ canvas2d = canvas.getContext('2d')
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-x = 0
-dx = 2
+let fly = {
+    x: innerWidth ,
+    y: innerHeight
+}
+
+let pic2 = new Image();
 let pic = new Image();
 pic.src="rainbow.png"
+pic2.src="parachute.png"
 pic.addEventListener("load", addFish)
+canvas.addEventListener("click", function(e) {
+    fly.x = event.clientX -50;
+    fly.y = event.clientY -50;
+    console.log(fly)
+})
 
 const mf = 5;
 const fish = [];
@@ -27,6 +37,13 @@ for(let i = 0; i < mf; i++)
 
 console.log(fish)
 
+function distance(x1, y1, x2, y2) {
+    let xDistance = x2 - x1;
+    let yDistance = y2 - y1;
+
+    return  Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2))
+}
+
 
 
 function addFish() {
@@ -38,6 +55,11 @@ function addFish() {
         let f = fish[i]
         canvas2d.drawImage(f.pic, f.x, f.y, f.width, f.height);
 
+    }
+    canvas2d.drawImage(pic2, fly.x, fly.y, 40, 40);
+    if (distance(fish[1].x, fish[1].y, fly.x, fly.y) < 40) {
+      fish[4].pic = null
+      console.log(fish)
     }
 }
 
