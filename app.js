@@ -51,21 +51,23 @@ function addFish() {
   canvas2d.clearRect(0, 0, innerWidth, innerHeight);
      //canvas2d.beginPath();
 
-  for (let i = 0; i < mf; i++) {
+  for (let i = 0; i < fish.length; i++) {
         let f = fish[i]
         canvas2d.drawImage(f.pic, f.x, f.y, f.width, f.height);
 
     }
     canvas2d.drawImage(pic2, fly.x, fly.y, 40, 40);
     if (distance(fish[1].x, fish[1].y, fly.x, fly.y) < 40) {
-      fish[4].pic = null
+      fish.splice(1, 1)
+
       console.log(fish)
+      
     }
 }
 
 function moveFish() {
 
-  for(let i = 0; i < mf; i++) {
+  for(let i = 0; i < fish.length; i++) {
     let f = fish[i];
 
     f.x += (Math.random() * 10);
