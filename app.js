@@ -5,9 +5,19 @@ canvas2d = canvas.getContext('2d')
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let fly = {
-    x: innerWidth ,
-    y: innerHeight
+const fly = [];
+const maxFly = 10;
+
+// let fly = {
+//     x: innerWidth ,
+//     y: innerHeight
+// }
+
+for(i = 0; i < maxFly; i++) {
+    fly.push({
+      x: undefined,
+      y: undefined,
+    })
 }
 
 let pic2 = new Image();
@@ -15,24 +25,30 @@ let pic = new Image();
 pic.src="rainbow.png"
 pic2.src="parachute.png"
 pic.addEventListener("load", addFish)
+//const fly = [];
+//const maxFly = 10;
 canvas.addEventListener("click", function(e) {
-    fly.x = event.clientX -50;
-    fly.y = event.clientY -50;
+  
+       
+    fly[0].x = event.clientX -50;
+    fly[0].y = event.clientY -50;
     console.log(fly)
-})
+});
 
-const mf = 5;
+const mf = 15;
 const fish = [];
+
 
 for(let i = 0; i < mf; i++) 
 {
     fish.push({
       pic: pic,
       x: Math.random() * 100,
-      y: Math.random() * (window.innerHeight - 40),
+      y: Math.random() * (window.innerHeight - 100),
       width: 60,
       height: 60,
     })
+
 };
 
 console.log(fish)
@@ -51,14 +67,15 @@ function addFish() {
   canvas2d.clearRect(0, 0, innerWidth, innerHeight);
      //canvas2d.beginPath();
 
-  for (let i = 0; i < fish.length; i++) {
+  for (let i = 0; i < fish.length-5; i++) {
         let f = fish[i]
         canvas2d.drawImage(f.pic, f.x, f.y, f.width, f.height);
 
     }
-    canvas2d.drawImage(pic2, fly.x, fly.y, 40, 40);
-    if (distance(fish[1].x, fish[1].y, fly.x, fly.y) < 40) {
-      fish.splice(1, 1)
+    canvas2d.drawImage(pic2, fly[0].x, fly[0].y, 40, 40);
+    if (distance(fish[0].x, fish[0].y, fly[0].x, fly[0].y) < 40) {
+      fish.splice(0, 1);
+      fly.splice(0, 1);
 
       console.log(fish)
       
@@ -71,10 +88,20 @@ function moveFish() {
     let f = fish[i];
 
     f.x += (Math.random() * 10);
+
+    if (f.x > canvas.width) {
+      fish[i] = {
+      pic: pic,
+      x: Math.random() * 100,
+      y: Math.random() * (window.innerHeight - 100),
+      width: 60,
+      height: 60,
+      }
+    }
   }
 }
 
-setInterval(function() {moveFish()}, 100)
+setInterval(function() {moveFish()}, 50)
 setInterval(function() {addFish()}, 50)
 
 
