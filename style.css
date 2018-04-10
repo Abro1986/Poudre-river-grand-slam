@@ -1,9 +1,25 @@
 canvas {
 	display: block;
-	margin: 40px;
-	padding: 0;
+	
+	margin: 0;
 	
 	border: 1px solid black;
 }
+
+input {
+	height: 75px;
+	width: 75px;
+	position: absolute;
+	float: left;
+}
+
+#ehc {
+	top: 100px;
+}
+
+#wolly {
+	top: 200px;
+}
+
 
 
