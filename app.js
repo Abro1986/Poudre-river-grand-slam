@@ -78,7 +78,7 @@ function randomFish() {
       pic: new Image(),
        
       x: 100,
-      y: Math.random() * (window.innerHeight - 100),
+      y: (Math.random() + 500) + (Math.random() * 250),
       width: 130,
       height: 75,
   }
@@ -182,7 +182,7 @@ function addFish() {
          //canvas2d.drawImage(f.pic, f.x, f.y, f.width, f.height);
          
     }
-    canvas2d.drawImage(pic2, fly[0].x, fly[0].y, 40, 40);
+    canvas2d.drawImage(pic2, fly[0].x, fly[0].y, 80, 80);
     // for (i = 0; i < fish.length; i++) {
 
     //  if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === cutty) && (pic2.src === paraSrc || wollySrc)) {
@@ -217,7 +217,7 @@ function moveFish() {
        // }
        fish.splice(0, 1);
 
-       brownEat()
+      
      }
   }
 }

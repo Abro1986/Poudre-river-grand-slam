@@ -1,5 +1,16 @@
+#splash {
+	background-image: url(https://images.unsplash.com/photo-1465408522361-a6f502298219?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3242c50f880cb90a2fcfe296c308a49a&auto=format&fit=crop&w=755&q=80);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+
+
 canvas {
 	display: block;
+	background-image: url(https://theflytrout.com/wp-content/uploads/2012/05/cheesman52012-2.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
 	
 	margin: 0;
 	
@@ -11,6 +22,15 @@ input {
 	width: 75px;
 	position: absolute;
 	float: left;
+	background: #117676;
+	border: 5px solid #2E1715;
+}
+
+h1 {
+	font-family: 'Istok Web', sans-serif;
+	color: #2E1715;
+	font-size: 50px;
+	text-align: center;
 }
 
 #ehc {
@@ -21,5 +41,19 @@ input {
 	top: 200px;
 }
 
+#info {
+	display: block;
+	text-align: center;
+	padding: 100px;
+	width: 600px;
+	margin: 0 auto;
+	border: 3px solid #2E1715;
+	background: rgba(0 255 0 0.5)
+}
+
+header {
+	text-align: center;
+	margin: 200px;
+}
 
 
