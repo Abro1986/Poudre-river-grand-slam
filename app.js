@@ -1,3 +1,4 @@
+//get html elments by their Id
 let canvas = document.getElementById('canvasBox');
 let canvas2d = canvas.getContext('2d')
 let parachute = document.getElementById('parachute')
@@ -6,9 +7,14 @@ let ehc = document.getElementById('ehc')
 let bag = document.getElementById('fishbag')
 let timer = document.getElementById('countdown')
 
+//set the size of the canvas
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+//the last fish created one second ago
 let lastFish = -1;
+
+//setting varibles for the image srcs
 let cutty = "yellowstone.png"
 let brown = "brown.png"
 let rainbow = "rainbow.png"
@@ -16,19 +22,19 @@ let brook = "brook.png"
 let wollySrc = "wolly.png"
 let paraSrc = "parachute.png"
 let ehcSrc = "EHC.png"
+
+//setting empty arrays and and the max amount of flys in the array
 let fishBag = [];
 let fishCount = 0
 let fly = [];
 let maxFly = 40;
+let mf = 15;
+let fish = [];
+
+//time to play on the counter
 let sec = 60
-//let collision = distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) 
-//let randomImg = ["rainbow.png", "brook.png"]
 
-// let fly = {
-//     x: innerWidth ,
-//     y: innerHeight
-// }
-
+// create objects in the fly array
 for(i = 0; i < maxFly; i++) {
     fly.push({
       pic2: new Image(),
@@ -36,12 +42,13 @@ for(i = 0; i < maxFly; i++) {
       y: undefined,
     })
   }
-
+ 
+//set the pic varible of the fish and fly objects to images
 let pic2 = new Image();
 let pic = new Image();
 
  
-  
+// set event listeners on load of page to load the images and start timer, this is the same as a $(document).ready in jQuery 
 pic.addEventListener("load", addFish)
 
 window.addEventListener("load", function() {
@@ -50,6 +57,7 @@ window.addEventListener("load", function() {
   timer.innerHTML = sec--}, 1000)
 })
 
+//set up event listeners for on click of fly buttons to assign value to the fly pic
 parachute.addEventListener("click", function(e) {
   pic2.src = parachute.src
 })
@@ -62,16 +70,16 @@ ehc.addEventListener('click', function(e) {
   pic2.src = ehc.src
 })
 
+//set the x, and y variables of the fly object on click within canvas
 canvas.addEventListener("click", function(e) {         
   fly[0].x = event.clientX -20;
   fly[0].y = event.clientY -30;
 });
 
 
-const mf = 15;
-const fish = [];
 
 
+// function to set random attributes to new fish as objects in the fish array
 function randomFish() {
 
   let randomNum = Math.random()
@@ -102,7 +110,7 @@ function randomFish() {
 }
 
 
-
+// function to check distance between two objects.
 function distance(x1, y1, x2, y2) {
     let xDistance = x2 - x1;
     let yDistance = y2 - y1;
@@ -110,6 +118,8 @@ function distance(x1, y1, x2, y2) {
     return  Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2))
 }
 
+// 4 functions to check if fly is the one that corresponding fish wants to eat. I realize there is room for
+// refactoring here and could propably be one function. could also use some varible assigning.
 function brownEat() {
     
   for (i = 0; i < fish.length; i++) {
@@ -172,12 +182,17 @@ function cuttyEat() {
   }
 }
 
+// function that gives the player their score at the end of 60 seconds then resets the game
 function checkScore() {
   if (sec <= 0) {
     alert("You caught " + fishCount + " trout")
+    sec = 60
+
   }
 }
 
+// recursive infinite function that erases fish and redraws them in a new position. It also is the collision 
+// detection for the whole game
 function addFish() {
 
   let time = Date.now();
@@ -207,6 +222,7 @@ function addFish() {
   checkScore()      
 }
 
+//sets the speed for the fish
 function moveFish() {
 
   for(let i = 0; i < fish.length; i++) {
@@ -228,11 +244,10 @@ function moveFish() {
 
 
 
-
+//function calls
 setInterval(function() {moveFish()}, 20)
-//setInterval(function() {addFish()}, 20)
 addFish()
-checkScore()
+
 
 
  
