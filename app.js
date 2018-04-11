@@ -3,10 +3,12 @@ let canvas2d = canvas.getContext('2d')
 let parachute = document.getElementById('parachute')
 let wolly = document.getElementById('wolly')
 let ehc = document.getElementById('ehc')
+let bag = document.getElementById('fishbag')
+let timer = document.getElementById('countdown')
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-lastFish = -1;
+let lastFish = -1;
 let cutty = "yellowstone.png"
 let brown = "brown.png"
 let rainbow = "rainbow.png"
@@ -14,8 +16,11 @@ let brook = "brook.png"
 let wollySrc = "wolly.png"
 let paraSrc = "parachute.png"
 let ehcSrc = "EHC.png"
-const fly = [];
-const maxFly = 15;
+let fishBag = [];
+let fishCount = 0
+let fly = [];
+let maxFly = 40;
+let sec = 60
 //let collision = distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) 
 //let randomImg = ["rainbow.png", "brook.png"]
 
@@ -30,7 +35,7 @@ for(i = 0; i < maxFly; i++) {
       x: undefined,
       y: undefined,
     })
-}
+  }
 
 let pic2 = new Image();
 let pic = new Image();
@@ -39,28 +44,27 @@ let pic = new Image();
   
 pic.addEventListener("load", addFish)
 
-parachute.addEventListener("click", function(e) {
+window.addEventListener("load", function() {
+   
+  setInterval(function() {
+  timer.innerHTML = sec--}, 1000)
+})
 
+parachute.addEventListener("click", function(e) {
   pic2.src = parachute.src
 })
 
 wolly.addEventListener('click', function(e) {
-
   pic2.src = wolly.src
 })
 
 ehc.addEventListener('click', function(e) {
-  
   pic2.src = ehc.src
 })
 
-canvas.addEventListener("click", function(e) {
-  
-  
-       
-    fly[0].x = event.clientX -20;
-    fly[0].y = event.clientY -30;
-    console.log(fly)
+canvas.addEventListener("click", function(e) {         
+  fly[0].x = event.clientX -20;
+  fly[0].y = event.clientY -30;
 });
 
 
@@ -110,10 +114,15 @@ function brownEat() {
     
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === brown) && (pic2.src.split("/").pop() === wollySrc)) {
-    fish.splice(i, 1);
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 40) && (fish[i].pic.src.split("/").pop() === brown) && (pic2.src.split("/").pop() === wollySrc)) {
+    //fish.splice(i, 1);
+    fish[i].pic = new Image();
+    fishBag.push(fish[i]);
     fly.splice(0, 1);
     pic2 = new Image()
+    
+    fishCount++
+    bag.innerHTML = ("fish count: " + fishCount )
     }
   }
 }
@@ -122,10 +131,13 @@ function rainbowEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === rainbow) && (pic2.src.split("/").pop() === paraSrc)) {
-    fish.splice(i, 1);
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 40) && (fish[i].pic.src.split("/").pop() === rainbow) && (pic2.src.split("/").pop() === paraSrc)) {
+    fish[i].pic = new Image();
+    fishBag.push(fish[i]);
     fly.splice(0, 1);
     pic2 = new Image()
+    fishCount++
+    bag.innerHTML = ("fish count: " + fishCount )
     }
   }
 }
@@ -134,10 +146,13 @@ function brookEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === brook) && (pic2.src.split("/").pop() === ehcSrc)) {
-    fish.splice(i, 1);
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 40) && (fish[i].pic.src.split("/").pop() === brook) && (pic2.src.split("/").pop() === ehcSrc)) {
+    fish[i].pic = new Image();
+    fishBag.push(fish[i]);
     fly.splice(0, 1);
     pic2 = new Image()
+    fishCount++
+    bag.innerHTML = ("fish count: " + fishCount )
     }
   }
 }
@@ -146,25 +161,33 @@ function cuttyEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === cutty) && (pic2.src.split("/").pop() === paraSrc)) {
-    fish.splice(i, 1);
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 40) && (fish[i].pic.src.split("/").pop() === cutty) && (pic2.src.split("/").pop() === paraSrc)) {
+    fish[i].pic = new Image();
+    fishBag.push(fish[i]);
     fly.splice(0, 1);
     pic2 = new Image()
+    fishCount++
+    bag.innerHTML = ("fish count: " + fishCount )
     }
+  }
+}
+
+function checkScore() {
+  if (sec <= 0) {
+    alert("You caught " + fishCount + " trout")
   }
 }
 
 function addFish() {
 
-    let time = Date.now();
+  let time = Date.now();
 
     if(time > (lastFish + 2000)) {
       lastFish = time;
       randomFish();
   }
 
-  canvas2d.clearRect(0, 0, innerWidth, innerHeight);
-     
+  canvas2d.clearRect(0, 0, innerWidth, innerHeight);     
   requestAnimationFrame(addFish);
 
 
@@ -174,14 +197,14 @@ function addFish() {
          //canvas2d.drawImage(f.pic, f.x, f.y, f.width, f.height);         
   }
     
-    canvas2d.drawImage(pic2, fly[0].x, fly[0].y, 40, 40);
+  canvas2d.drawImage(pic2, fly[0].x, fly[0].y, 40, 40);
     
 
-    brownEat()
-    rainbowEat()
-    brookEat()
-    cuttyEat()
-      
+  brownEat()
+  rainbowEat()
+  brookEat()
+  cuttyEat()
+  checkScore()      
 }
 
 function moveFish() {
@@ -203,9 +226,13 @@ function moveFish() {
 
 
 
+
+
+
 setInterval(function() {moveFish()}, 20)
 //setInterval(function() {addFish()}, 20)
 addFish()
+checkScore()
 
 
  

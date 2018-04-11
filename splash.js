@@ -3,3 +3,8 @@ $("#link").click(function() {
 })
 
 console.log("working")
+
+$("#info").click(function() {
+	console.log("hello")
+	$("#container").append("<li>hello</li>")
+})
