@@ -77,7 +77,7 @@ function randomFish() {
       pic: new Image(),
        
       x: 100,
-      y: (Math.random() + 500) + (Math.random() * 250)
+      y: (Math.random() + 500) + (Math.random() * 250),
       width: 130,
       height: 75,
   }
@@ -91,7 +91,7 @@ function randomFish() {
     } else if (randomNum2 > 1 && randomNum2 < 1.50) {
     trout.pic.src = brown;
     } else {
-    trout.pic.src = cutty
+    trout.pic.src = cutty;
     }
     
    fish.push(trout);
