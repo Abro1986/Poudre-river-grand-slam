@@ -4,16 +4,30 @@ let parachute = document.getElementById('parachute')
 let wolly = document.getElementById('wolly')
 let ehc = document.getElementById('ehc')
 
+var getUrl = window.location;
+var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+console.log(baseUrl)
+
+let cutty = "yellowstone.png"
+let brown = "brown.png"
+let rainbow = "rainbow.png"
+let brook = "brook.png"
+let wollySrc = "wolly.png"
+let paraSrc = "parachute.png"
+let ehcSrc = "EHC.png"
+
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 lastFish = -1;
-let cutty = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/yellowstone.png"
-let brown = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/brown.png"
-let rainbow = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/rainbow.png"
-let brook = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/brook.png"
-let wollySrc = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/wolly.png"
-let paraSrc = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/parachute.png"
-let ehcSrc = "file:///Users/andrewbroestl/Desktop/WDI-Working-directory/homework_week_3/Project1/Poudre-river-grand-slam/EHC.png"
+// let cutty = "yellowstone.png"
+// let brown = "brown.png"
+// let rainbow = "rainbow.png"
+// let brook = "brook.png"
+// let wollySrc = "wolly.png"
+// let paraSrc = "parachute.png"
+// let ehcSrc = "EHC.png"
 const fly = [];
 const maxFly = 15;
 //let collision = distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) 
@@ -23,6 +37,7 @@ const maxFly = 15;
 //     x: innerWidth ,
 //     y: innerHeight
 // }
+
 
 for(i = 0; i < maxFly; i++) {
     fly.push({
@@ -42,17 +57,17 @@ pic.addEventListener("load", addFish)
 
 parachute.addEventListener("click", function(e) {
 
-  pic2.src = this.src
+  pic2.src = parachuteSrc
 })
 
 wolly.addEventListener('click', function(e) {
 
-  pic2.src = wolly.src
+  pic2.src = wollySrc
 })
 
 ehc.addEventListener('click', function(e) {
   
-  pic2.src = ehc.src
+  pic2.src = ehcSrc
 })
 
 canvas.addEventListener("click", function(e) {
@@ -86,13 +101,13 @@ function randomFish() {
     //let randomNum = Math.random()
 
   if (randomNum2 < 0.50) {     
-    trout.pic.src = "rainbow.png";
+    trout.pic.src = rainbow;
     } else if (randomNum2 > 0.50 && randomNum2 < 1) {      
-    trout.pic.src = "brook.png";
+    trout.pic.src = brook;
     } else if (randomNum2 > 1 && randomNum2 < 1.50) {
-    trout.pic.src = "brown.png";
+    trout.pic.src = brown;
     } else {
-    trout.pic.src = "yellowstone.png"
+    trout.pic.src = cutty;
     }
     
    fish.push(trout);
@@ -113,10 +128,12 @@ function brownEat() {
     
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === brown) && (pic2.src === wollySrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === brown) && (pic2.src.split("/").pop() === wollySrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
-    pic2 = new Image()
+
+    console.log(fish[i])
+    //pic2 = new Image()
     }
   }
 }
@@ -128,7 +145,7 @@ function rainbowEat() {
     if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === rainbow) && (pic2.src === paraSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
-    pic2 = new Image()
+    //pic2 = new Image()
     }
   }
 }
@@ -140,7 +157,7 @@ function brookEat() {
     if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === brook) && (pic2.src === ehcSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
-    pic2 = new Image()
+    //pic2 = new Image()
     }
   }
 }
@@ -149,10 +166,10 @@ function cuttyEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === cutty) && (pic2.src === paraSrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic === cutty) && (pic2.src === paraSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
-    pic2 = new Image()
+    //pic2 = new Image()
     }
   }
 }
