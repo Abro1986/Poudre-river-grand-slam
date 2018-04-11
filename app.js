@@ -41,7 +41,7 @@ pic.addEventListener("load", addFish)
 
 parachute.addEventListener("click", function(e) {
 
-  pic2.src = this.src
+  pic2.src = parachute.src
 })
 
 wolly.addEventListener('click', function(e) {
@@ -77,7 +77,7 @@ function randomFish() {
       pic: new Image(),
        
       x: 100,
-      y: Math.random() * (window.innerHeight - 100),
+      y: (Math.random() + 500) + (Math.random() * 250)
       width: 130,
       height: 75,
   }
@@ -85,13 +85,13 @@ function randomFish() {
     //let randomNum = Math.random()
 
   if (randomNum2 < 0.50) {     
-    trout.pic.src = "rainbow.png";
+    trout.pic.src = rainbow;
     } else if (randomNum2 > 0.50 && randomNum2 < 1) {      
-    trout.pic.src = "brook.png";
+    trout.pic.src = brook;
     } else if (randomNum2 > 1 && randomNum2 < 1.50) {
-    trout.pic.src = "brown.png";
+    trout.pic.src = brown;
     } else {
-    trout.pic.src = "yellowstone.png"
+    trout.pic.src = cutty
     }
     
    fish.push(trout);
@@ -110,7 +110,7 @@ function brownEat() {
     
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === brown) && (pic2.src === wollySrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === brown) && (pic2.src.split("/").pop() === wollySrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
     pic2 = new Image()
@@ -122,7 +122,7 @@ function rainbowEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === rainbow) && (pic2.src === paraSrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === rainbow) && (pic2.src.split("/").pop() === paraSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
     pic2 = new Image()
@@ -134,7 +134,7 @@ function brookEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === brook) && (pic2.src === ehcSrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === brook) && (pic2.src.split("/").pop() === ehcSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
     pic2 = new Image()
@@ -146,7 +146,7 @@ function cuttyEat() {
 
   for (i = 0; i < fish.length; i++) {
 
-    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src === cutty) && (pic2.src === paraSrc)) {
+    if ((distance(fish[i].x, fish[i].y, fly[0].x, fly[0].y) < 60) && (fish[i].pic.src.split("/").pop() === cutty) && (pic2.src.split("/").pop() === paraSrc)) {
     fish.splice(i, 1);
     fly.splice(0, 1);
     pic2 = new Image()
@@ -184,12 +184,22 @@ function addFish() {
       
 }
 
-function moveFish() {"if (f.x > canvas.width) {
+function moveFish() {
+
+  for(let i = 0; i < fish.length; i++) {
+    let f = fish[i];
+
+    f.x += (Math.random() * 5);
+
+     if (f.x > canvas.width) {
        
-      fish.splice(0, 1);       
+       fish.splice(0, 1);
+
+      
      }
   }
 }
+
 
 
 
