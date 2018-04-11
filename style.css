@@ -1,4 +1,4 @@
-#splash {
+.splash {
 	background-image: url(https://images.unsplash.com/photo-1465408522361-a6f502298219?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3242c50f880cb90a2fcfe296c308a49a&auto=format&fit=crop&w=755&q=80);
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -76,26 +76,26 @@ p {
 }
 
 #container {
-	height: 100px;
-	width: 100px;
+	height: 10px;
+	width: 400px;
 	text-align:center;
 	display: block;
 	margin: 0 auto;
 
 }
 
-li {
+h2 {
 	font-family: 'Istok Web', sans-serif;
 	font-size: 15px;
 	height: 100px;
-	width: 100px;
+	color: #244100;
 	display: block;
 	text-align: center;
-	padding: 100px;
+	
 	width: 400px;
 	margin: 0 auto;
 	border: 3px solid #2E1715;
-	background: rgba(0 255 0 0.5)
+	background: black;
 }
 
 
